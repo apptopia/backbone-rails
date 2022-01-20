@@ -1065,7 +1065,11 @@
 
     // Define how to uniquely identify models in the collection.
     modelId: function (attrs) {
-      return attrs[this.model?.prototype?.idAttribute || 'id'];
+      if (this.model && this.model.prototype && this.model.prototype.idAttribute) {
+        return attrs[this.model.prototype.idAttribute];
+      }
+
+      return attrs['id'];
     },
 
     // Private method to reset all internal state. Called when the collection
